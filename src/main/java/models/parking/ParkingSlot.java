@@ -60,4 +60,19 @@ public abstract class ParkingSlot {
         return status == ParkingSLotStatus.Occupied;
     }
 
+    public void setVehicle(Optional<Vehicle> vehicle) {
+        boolean isVehicleTypeSupported = supportedVehicleType.contains(vehicle.get().getVehicleType());
+        if(isVehicleTypeSupported) {
+            this.vehicle = vehicle;
+            this.status = ParkingSLotStatus.Occupied;
+            return;
+        }
+        throw new RuntimeException("Vehicle type not supported");
+    }
+
+    public void removeVehicle() {
+        this.vehicle = Optional.empty();
+        this.status = ParkingSLotStatus.Empty;
+    }
+
 }
